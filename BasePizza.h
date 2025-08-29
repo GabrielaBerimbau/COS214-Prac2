@@ -5,17 +5,18 @@
 #include "PizzaComponent.h"
 
 #include <string>
-using namespace std;
 
 class BasePizza : public Pizza {
     private :
+        std::string pizzaName;
         PizzaComponent* toppings;
 
     public:
-        BasePizza(PizzaComponent* t) : toppings(t) {};
+        BasePizza(std::string n, PizzaComponent* t) : pizzaName(n), toppings(t) {};
         virtual ~BasePizza() = default;
+
         virtual double getPrice() override;
-        virtual string getName() override;
+        virtual std::string getName() override;
 
 };
 

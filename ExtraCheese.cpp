@@ -1,13 +1,13 @@
 #include "ExtraCheese.h"
 #include <iostream>
-using namespace std;
 
 double ExtraCheese::getPrice()
 {
-    return 0.0;
+    return PizzaDecorator::getPrice() + 12.00;
 }
 
-string ExtraCheese::getName()
+std::string ExtraCheese::getName()
 {
-    return string();
+    return PizzaDecorator::getName() + ", Extra Cheese";
 }
+

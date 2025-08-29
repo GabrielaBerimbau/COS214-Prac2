@@ -9,14 +9,12 @@ using namespace std;
 class ExtraCheese : public PizzaDecorator {
     public:
         //constructors
-        ExtraCheese();
+        ExtraCheese(Pizza* pizza) : PizzaDecorator(pizza) {};
         virtual ~ExtraCheese() = default;
 
         //inherited functions
         virtual double getPrice() override;
         virtual string getName() override;
-
-        //class specific
 
 };
 

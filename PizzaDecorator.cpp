@@ -4,10 +4,10 @@ using namespace std;
 
 double PizzaDecorator::getPrice()
 {
-    return 0.0;
+    return pizza->getPrice();
 }
 
 string PizzaDecorator::getName()
 {
-    return string();
+    return pizza->getName();
 }

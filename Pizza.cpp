@@ -1,7 +1,9 @@
 #include "Pizza.h"
 #include <iostream>
-using namespace std;
 
 void Pizza::printPizza()
 {
+    std::cout << "Printing Pizza Order: " << endl;
+    cout << getName() <<  " - " << "R" << getPrice() << endl;
+
 }

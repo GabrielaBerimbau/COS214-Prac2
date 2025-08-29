@@ -5,13 +5,9 @@
 using namespace std;
 
 class Pizza {
-    private :
-        double price;
-        string name;
-
     public:
         //constructors
-        Pizza();
+        Pizza() {};
         virtual ~Pizza() = default;
 
         virtual double getPrice() = 0;

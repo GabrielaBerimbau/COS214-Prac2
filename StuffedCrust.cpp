@@ -4,10 +4,11 @@ using namespace std;
 
 double StuffedCrust::getPrice()
 {
-    return 0.0;
+    return PizzaDecorator::getPrice() + 20.00;
 }
 
 string StuffedCrust::getName()
 {
-    return string();
+    return PizzaDecorator::getName() + ", Stuffed Crust";
 }
+

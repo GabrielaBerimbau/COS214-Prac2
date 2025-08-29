@@ -1,6 +1,10 @@
 #include "PizzaComponent.h"
 #include "Topping.h"
 #include "ToppingGroup.h"
+#include "Pizza.h"
+#include "BasePizza.h"
+#include "ExtraCheese.h"
+#include "StuffedCrust.h"
 #include <iostream>
 using namespace std;
 
@@ -43,9 +47,40 @@ int main() {
     vegetarianDeluxe->add(vegetarian);
     vegetarianDeluxe->add(feta);
     vegetarianDeluxe->add(olives);
-    cout << "Vegetarian Deluxe: " << vegetarianDeluxe->getName() << " - " << "Price: R" << vegetarianDeluxe->getPrice() << endl;
+    cout << "Vegetarian Deluxe: " << vegetarianDeluxe->getName() << " - " << "Price: R" << vegetarianDeluxe->getPrice() << endl << endl;
 
     // ============================================================================
 
+
+    // ============================== Testing Decorator ===========================
+
+    cout << "=================== Testing Decorator ==================== " << endl << endl;
+
+    //Pepperoni with extra cheese
+    Pizza* pepperoni2 = new BasePizza("Pepperoni Pizza", pepperoni);
+    pepperoni2->printPizza(); 
+    cout << endl;
+    Pizza* extraCheesePepperoni = new ExtraCheese(pepperoni2);
+    extraCheesePepperoni->printPizza();
+
+    cout << endl;
+
+    Pizza* veg = new BasePizza("Vegetarian", vegetarian);
+    veg->printPizza();
+    cout << endl;
+    Pizza* vegExtraCheese = new ExtraCheese(veg);
+    Pizza* vegStuffedCrust = new StuffedCrust(vegExtraCheese);
+    vegStuffedCrust->printPizza();
+    cout << endl;
+
+
+    // ============================================================================
+
+
+    // ============================== Testing Strategy ===========================
+
+
+
     return 0;
 }
+

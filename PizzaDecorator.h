@@ -19,8 +19,6 @@ class PizzaDecorator : public Pizza {
         virtual double getPrice() override;
         virtual string getName() override;
 
-        //class specific
-
 };
 
 #endif // PizzaDecorator
