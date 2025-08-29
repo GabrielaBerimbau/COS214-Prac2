@@ -4,10 +4,10 @@ using namespace std;
 
 string Topping::getName()
 {
-    return string();
+    return name;
 }
 
 double Topping::getPrice()
 {
-    return 0.0;
+    return price;
 }

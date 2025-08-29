@@ -3,25 +3,28 @@
 
 #include "PizzaComponent.h"
 
+#include <vector>
 #include <string>
-using namespace std;
 
+//holds individual and group toppings
 class ToppingGroup : public PizzaComponent{
     private:
-        PizzaComponent* toppings;
-        double price;
-        string name;
+        std::vector<PizzaComponent*> toppings;
 
     public:
-        ToppingGroup(PizzaComponent* t, double p, string n) : PizzaComponent(p, n), toppings(t) {};
+        // Group name for toppings
+        ToppingGroup(const std::string& groupName) : PizzaComponent(groupName, 0.0) {}
+        // With initial toppings
+        ToppingGroup(const std::string& groupName, const std::vector<PizzaComponent*>& initialToppings) : PizzaComponent(groupName, 0.0), toppings(initialToppings) {}
         virtual ~ToppingGroup() = default;
 
         //inherited functions
-        virtual string getName() override;
+        virtual std::string getName() override;
         virtual double getPrice() override;
 
         //class specific
         void add(PizzaComponent* component);
+        void removeLast();
 
 };
 

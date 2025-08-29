@@ -2,17 +2,22 @@
 #define PIZZA_COMPONENT_H
 
 #include <string>
-using namespace std;
 
 class PizzaComponent {
-    private:
+    protected:
+        std::string name;
         double price;
-        string name;
     
     public:
-        PizzaComponent(double p, string n) : price(p), name(n) {};
-        virtual ~PizzaComponent();
-        virtual string getName() = 0;
+        //constructors
+        PizzaComponent(const std::string& n, double p) : name(n), price(p) {};
+        virtual ~PizzaComponent() = default;
+
+        //composite design methods
+        virtual void add(PizzaComponent*) {};
+        virtual void remove() {};
+
+        virtual std::string getName() = 0;
         virtual double getPrice() = 0;
 
 };

@@ -4,16 +4,13 @@
 #include "PizzaComponent.h"
 
 #include <string>
-using namespace std;
 
+//individual ingredients
 class Topping : public PizzaComponent{
-    private :
-        double price;
-        string name;
     public:
-        Topping(double p,  string n) : PizzaComponent(p,n) {};
+        Topping(const std::string& n, double p) : PizzaComponent(n, p) {} 
         virtual ~Topping() = default;
-        virtual string getName() override;
+        virtual std::string getName() override;
         virtual double getPrice() override;
 
 };
