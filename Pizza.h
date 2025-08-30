@@ -17,3 +17,6 @@ class Pizza {
 };
 
 #endif // Pizza
+
+
+//context is holding a pizza pointer reference

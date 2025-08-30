@@ -9,6 +9,7 @@ DEMO_TARGET = demo
 # Source files (add all your .cpp files here except the main files)
 SOURCES = BasePizza.cpp \
           BulkDiscount.cpp \
+          ContextState.cpp \
           Customer.cpp \
           DiscountStrategy.cpp \
           ExtraCheese.cpp \
@@ -20,6 +21,10 @@ SOURCES = BasePizza.cpp \
           PizzaMenu.cpp \
           RegularPrice.cpp \
           SpecialsMenu.cpp \
+          StateComplete.cpp \
+          StateConfirm.cpp \
+          StateOrder.cpp \
+          StateReview.cpp \
           StuffedCrust.cpp \
           Topping.cpp \
           ToppingGroup.cpp \
