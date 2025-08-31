@@ -15,7 +15,7 @@ class PizzaComponent {
 
         //composite design methods
         virtual void add(PizzaComponent*) {};
-        virtual void remove() {};
+        virtual void removeLast() {};
 
         virtual std::string getName() = 0;
         virtual double getPrice() = 0;

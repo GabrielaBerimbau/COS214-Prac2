@@ -59,6 +59,10 @@ void testCompositePattern() {
     vegetarianDeluxe->add(olives);
     cout << "Vegetarian Deluxe: " << vegetarianDeluxe->getName() << " - " << "Price: R" << vegetarianDeluxe->getPrice() << endl << endl;
 
+    cout << "Removing last topping added: ";
+    vegetarianDeluxe->removeLast();
+    cout << "Vegetarian Deluxe: " << vegetarianDeluxe->getName() << " - " << "Price: R" << vegetarianDeluxe->getPrice() << endl << endl;
+
     cout << "Composite Pattern tests completed!" << endl << endl;
 }
 
