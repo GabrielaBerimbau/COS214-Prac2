@@ -12,7 +12,7 @@ class BulkDiscount : public DiscountStrategy {
         BulkDiscount();
         virtual ~BulkDiscount() = default;
 
-        virtual double applyDiscount();
+        virtual double applyDiscount(double originalPrice, int numPizzas) override;
 
 };
 

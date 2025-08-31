@@ -1,8 +1,14 @@
 #include "BulkDiscount.h"
 #include <iostream>
-using namespace std;
 
-double BulkDiscount::applyDiscount()
+double BulkDiscount::applyDiscount(double originalPrice, int numPizzas)
 {
-    return 0.0;
+    if (numPizzas < 5) {
+        std::cout << "Bulk discount cannot be applied to orders with less than 5 pizzas.";
+        return originalPrice;
+    }
+
+    double discount = originalPrice * 0.10;
+
+    return originalPrice - discount;
 }

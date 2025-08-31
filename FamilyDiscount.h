@@ -12,7 +12,7 @@ class FamilyDiscount : public DiscountStrategy {
         FamilyDiscount();
         virtual ~FamilyDiscount() = default;
 
-        virtual double applyDiscount() override;
+        virtual double applyDiscount(double originalPrice, int numPizzas) override;
 
 };
 

@@ -2,7 +2,8 @@
 #include <iostream>
 using namespace std;
 
-double RegularPrice::applyDiscount()
+double RegularPrice::applyDiscount(double originalPrice, int numPizzas)
 {
-    return 0.0;
+    //no discount applied
+    return originalPrice;
 }

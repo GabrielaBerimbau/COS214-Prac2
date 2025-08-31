@@ -12,7 +12,7 @@ class RegularPrice : public DiscountStrategy {
         RegularPrice();
         virtual ~RegularPrice() = default;
 
-        virtual double applyDiscount() override;
+        virtual double applyDiscount(double originalPrice, int numPizzas) override;
 
 };
 
