@@ -9,7 +9,7 @@ using namespace std;
 class FamilyDiscount : public DiscountStrategy {
     public:
         //constructors
-        FamilyDiscount();
+        FamilyDiscount() {};
         virtual ~FamilyDiscount() = default;
 
         virtual double applyDiscount(double originalPrice, int numPizzas) override;

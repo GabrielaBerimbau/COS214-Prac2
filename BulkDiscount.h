@@ -9,7 +9,7 @@ using namespace std;
 class BulkDiscount : public DiscountStrategy {
     public:
         //constructors
-        BulkDiscount();
+        BulkDiscount() {};
         virtual ~BulkDiscount() = default;
 
         virtual double applyDiscount(double originalPrice, int numPizzas) override;

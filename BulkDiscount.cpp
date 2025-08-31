@@ -10,5 +10,5 @@ double BulkDiscount::applyDiscount(double originalPrice, int numPizzas)
 
     double discount = originalPrice * 0.10;
 
-    return originalPrice - discount;
+    return (originalPrice - discount);
 }

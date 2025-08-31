@@ -7,7 +7,7 @@ using namespace std;
 class DiscountStrategy {
     public:
         //constructors
-        DiscountStrategy();
+        DiscountStrategy() {};
         virtual ~DiscountStrategy() = default;
 
         virtual double applyDiscount(double originalPrice, int numPizzas) = 0; //pass in total order price and number of pizzas in the order 

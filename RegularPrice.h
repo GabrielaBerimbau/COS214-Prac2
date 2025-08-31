@@ -9,7 +9,7 @@ using namespace std;
 class RegularPrice : public DiscountStrategy {
     public:
         //constructors
-        RegularPrice();
+        RegularPrice() {};
         virtual ~RegularPrice() = default;
 
         virtual double applyDiscount(double originalPrice, int numPizzas) override;
