@@ -22,6 +22,7 @@
 #include <cassert>
 using namespace std;
 
+
 int getIntInput() {
     int choice;
     while (!(cin >> choice)) {
@@ -124,6 +125,123 @@ Pizza* createSelectedPizza(int choice) {
     }
 }
 
+void testObserverPattern() {
+    cout << "=================== Testing Observer ==================== " << endl << endl;
+    
+    // Create menus (subjects)
+    PizzaMenu regularMenu;
+    SpecialsMenu specialsMenu;
+    
+    // Create observers
+    Customer customer1("Mario");
+    Customer customer2("Luigi");
+    Customer customer3("Peach");
+    Website website("RomeosPizza.com");
+    Website website2("PizzaDeals.co.za");
+    
+    // Test Customer getName functionality
+    assert(customer1.getName() == "Mario");
+    assert(website.getSiteName() == "RomeosPizza.com");
+    
+    cout << "Testing observer registration:" << endl;
+    
+    // Test adding observers to regular menu
+    regularMenu.addObserver(&customer1);
+    regularMenu.addObserver(&customer2);
+    regularMenu.addObserver(&website);
+    
+    // Test adding observers to specials menu
+    specialsMenu.addObserver(&customer1);
+    specialsMenu.addObserver(&customer3);
+    specialsMenu.addObserver(&website2);
+    
+    cout << "\n--- Testing Regular Menu Updates ---\n";
+    
+    // Create pizzas for observer testing
+    PizzaComponent* pepperoniTopping = new Topping("Pepperoni", 20.00);
+    Pizza* pepperoniPizza = new ExtraCheese(new BasePizza("Pepperoni Special", pepperoniTopping));
+    
+    PizzaComponent* vegGroup = new ToppingGroup("Vegetarian");
+    vegGroup->add(new Topping("Mushroom", 12.00));
+    vegGroup->add(new Topping("Green Peppers", 10.00));
+    Pizza* vegetarianPizza = new BasePizza("Vegetarian Pizza", vegGroup);
+    
+    // Test adding pizzas (should notify all registered observers)
+    regularMenu.addPizza(pepperoniPizza);
+    assert(regularMenu.getPizzas().size() == 1);
+    
+    regularMenu.addPizza(vegetarianPizza);
+    assert(regularMenu.getPizzas().size() == 2);
+    
+    // Test menu display functionality
+    cout << "\nTesting menu display:" << endl;
+    regularMenu.displayMenu();
+    assert(regularMenu.getTotalMenuValue() > 0);
+    
+    // Test getPizzaByName functionality
+    Pizza* foundPizza = regularMenu.getPizzaByName("Pepperoni");
+    assert(foundPizza != nullptr);
+    Pizza* notFoundPizza = regularMenu.getPizzaByName("Hawaiian");
+    assert(notFoundPizza == nullptr);
+    
+    // Test removing pizzas (should notify all observers)
+    regularMenu.removePizza(pepperoniPizza);
+    assert(regularMenu.getPizzas().size() == 1);
+    
+    cout << "\n--- Testing Specials Menu Updates ---\n";
+    
+    // Test specials menu (different notification style)
+    PizzaComponent* specialGroup = new ToppingGroup("Tuesday Special");
+    specialGroup->add(new Topping("Pepperoni", 20.00));
+    specialGroup->add(new Topping("Extra Sauce", 5.00));
+    Pizza* tuesdaySpecial = new StuffedCrust(new BasePizza("Tuesday Special", specialGroup));
+    
+    specialsMenu.addPizza(tuesdaySpecial);
+    assert(specialsMenu.getPizzas().size() == 1);
+    assert(specialsMenu.getMenuType() == "Specials Menu");
+    
+    cout << "\n--- Testing Observer Removal ---\n";
+    
+    // Remove an observer and test
+    regularMenu.removeObserver(&customer2);
+    
+    PizzaComponent* hawaiianGroup = new ToppingGroup("Hawaiian");
+    hawaiianGroup->add(new Topping("Ham", 18.00));
+    hawaiianGroup->add(new Topping("Pineapple", 8.00));
+    Pizza* hawaiianPizza = new BasePizza("Hawaiian Pizza", hawaiianGroup);
+    
+    regularMenu.addPizza(hawaiianPizza);
+    // Should only notify customer1 and website now (not customer2)
+    
+    cout << "\n--- Testing Remove by Name ---\n";
+    
+    // Test removePizzaByName functionality
+    // The pizza name includes the full composite structure plus decorator
+    cout << "Actual pizza name: " << tuesdaySpecial->getName() << endl;
+    string fullPizzaName = tuesdaySpecial->getName();
+    specialsMenu.removePizzaByName(fullPizzaName);
+    assert(specialsMenu.getPizzas().size() == 0);
+    
+    // Test removing non-existent pizza
+    regularMenu.removePizzaByName("Non-Existent Pizza");
+    
+    cout << "\n--- Testing Edge Cases ---\n";
+    
+    // Test adding null observer
+    regularMenu.addObserver(nullptr); // Should handle gracefully
+    
+    // Test removing non-existent observer
+    regularMenu.removeObserver(&customer3); // customer3 was never added to regularMenu
+    
+    // Test with empty menu
+    SpecialsMenu emptyMenu;
+    emptyMenu.displayMenu();
+    assert(emptyMenu.getTotalMenuValue() == 0.0);
+    assert(emptyMenu.getPizzas().size() == 0);
+    
+    cout << "Observer Pattern tests completed!" << endl << endl;
+}
+
 int main() {
 
     cout << "========== WELCOME TO ROMEO'S PIZZA ========== " << endl << endl;
@@ -190,7 +308,7 @@ int main() {
     vegetarianGroup->add(greenPeppers);
     vegetarianGroup->add(onions);
     Pizza* vegetarianPizza = new BasePizza("Vegetarian", vegetarianGroup);
-     cout << "6. ";
+    cout << "6. ";
     vegetarianPizza->printPizza();
 
     PizzaComponent* vegetarianDeluxe = new ToppingGroup("Vegetarian Deluxe");
@@ -198,7 +316,7 @@ int main() {
     vegetarianDeluxe->add(fetaCheese);
     vegetarianDeluxe->add(olives);
     Pizza* vegetarianDeluxePizza = new BasePizza("Vegetarian Deluxe", vegetarianDeluxe);
-     cout << "7. ";
+    cout << "7. ";
     vegetarianDeluxePizza->printPizza();
     
     PizzaComponent* greekToppings = new ToppingGroup("The Greek");
@@ -207,7 +325,7 @@ int main() {
     greekToppings->add(onions);
     greekToppings->add(tomatoes);
     Pizza* greekPizza = new BasePizza("The Greek", greekToppings);
-     cout << "8. ";
+    cout << "8. ";
     greekPizza->printPizza();
 
     cout << endl;
@@ -389,6 +507,8 @@ int main() {
         }
     }
 
+    cout << endl;
+
     // Order review and completion
     if (order.getPizzas().size() > 0) {
         
@@ -426,7 +546,25 @@ int main() {
                     // Go back to ordering 
                     order.backToEditing();
                     cout << "Returning to pizza selection..." << endl << endl;
-                    
+
+                    cout << "1. ";
+                    pepperoniPizza->printPizza(); 
+                    cout << "2. ";
+                    hawaiianPizza->printPizza();
+                    cout << "3. ";
+                    meatLoversPizza->printPizza();
+                    cout << "4. ";
+                    bbqChickenPizza->printPizza();
+                    cout << "5. ";
+                    bafPizza->printPizza();
+                    cout << "6. ";
+                    vegetarianPizza->printPizza();
+                    cout << "7. ";
+                    vegetarianDeluxePizza->printPizza();
+                    cout << "8. ";
+                    greekPizza->printPizza();
+                    cout << "9. Build Your Own Pizza - Starting with basics (Dough, Tomato Sauce, Cheese) R30.00 + toppings" << endl << endl;
+                                        
                     // Resume ordering loop
                     bool continuingOrder = true;
                     while (continuingOrder && order.getCurrentState()->getStateName() == "Order") {
@@ -638,6 +776,10 @@ int main() {
     } else {
         cout << "No pizzas ordered. Thank you for visiting Romeo's Pizza!" << endl;
     }
+
+    cout << endl;
+
+    testObserverPattern();
 
     // clean up memory
     delete pepperoniPizza;
