@@ -18,6 +18,12 @@ ContextState::ContextState() : orderNumber(0) {
 }
 
 ContextState::~ContextState() {
+    //clean up all pizzas in the order
+    for (Pizza* pizza : pizzas) {
+        delete pizza;
+    }
+    pizzas.clear();
+    
     delete state; 
     delete strategy;
 }

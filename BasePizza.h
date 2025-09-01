@@ -13,7 +13,7 @@ class BasePizza : public Pizza {
 
     public:
         BasePizza(std::string n, PizzaComponent* t) : pizzaName(n), toppings(t) {};
-        virtual ~BasePizza() = default;
+        virtual ~BasePizza();
 
         virtual double getPrice() override;
         virtual std::string getName() override;

@@ -240,6 +240,8 @@ void testObserverPattern() {
     assert(emptyMenu.getPizzas().size() == 0);
     
     cout << "Observer Pattern tests completed!" << endl << endl;
+
+    delete pepperoniPizza;
 }
 
 int main() {
@@ -247,83 +249,69 @@ int main() {
     cout << "========== WELCOME TO ROMEO'S PIZZA ========== " << endl << endl;
     cout << "Take a look at our menu:" << endl << endl;
 
-    //Available toppings
-    PizzaComponent* pepperoni = new Topping("Pepperoni", 20.00);
-    PizzaComponent* mushrooms = new Topping("Mushrooms", 12.00);
-    PizzaComponent* greenPeppers = new Topping("Green Peppers", 10.00);
-    PizzaComponent* onions = new Topping("Onions", 8.00);
-    PizzaComponent* beefSausage = new Topping("Beef Sausage", 25.00);
-    PizzaComponent* salami = new Topping("Salami", 22.00);
-    PizzaComponent* fetaCheese = new Topping("Feta Cheese", 18.00);
-    PizzaComponent* olives = new Topping("Olives", 15.00);
-    PizzaComponent* ham = new Topping("Ham", 16.00);
-    PizzaComponent* pineapple = new Topping("Pineapple", 14.00);
-    PizzaComponent* grilledChicken = new Topping("Grilled Chicken", 25.00);
-    PizzaComponent* bacon = new Topping("Bacon", 20.00);
-    PizzaComponent* avocado = new Topping("Avocado", 19.00);
-    PizzaComponent* blackOlives = new Topping("Black Olives", 10.00);
-    PizzaComponent* tomatoes = new Topping("Tomatoes", 7.00);
-
-    Pizza* pepperoniPizza = new BasePizza("Pepperoni Pizza", pepperoni);
+    // Create pizzas for display only - delete at end of main
+    Pizza* pepperoniPizza = new BasePizza("Pepperoni Pizza", new Topping("Pepperoni", 20.00));
     cout << "1. ";
     pepperoniPizza->printPizza(); 
 
     PizzaComponent* hawaiianToppings = new ToppingGroup("Hawaiian");
-    hawaiianToppings->add(ham);
-    hawaiianToppings->add(pineapple);
+    hawaiianToppings->add(new Topping("Ham", 16.00));
+    hawaiianToppings->add(new Topping("Pineapple", 14.00));
     Pizza* hawaiianPizza = new BasePizza("Hawaiian", hawaiianToppings);
     cout << "2. ";
     hawaiianPizza->printPizza();
 
     PizzaComponent* meatLovers = new ToppingGroup("Meat Lovers");
-    meatLovers->add(pepperoni);
-    meatLovers->add(beefSausage);
-    meatLovers->add(salami);
+    meatLovers->add(new Topping("Pepperoni", 20.00));  
+    meatLovers->add(new Topping("Beef Sausage", 25.00));  
+    meatLovers->add(new Topping("Salami", 22.00));        
     Pizza* meatLoversPizza = new BasePizza("Meat Lovers", meatLovers);
     cout << "3. ";
     meatLoversPizza->printPizza();
 
     PizzaComponent* bbqToppings = new ToppingGroup("BBQ Chicken");
-    bbqToppings->add(grilledChicken);
+    bbqToppings->add(new Topping("Grilled Chicken", 25.00));
     bbqToppings->add(new Topping("BBQ Sauce", 5.00));
-    bbqToppings->add(onions);
+    bbqToppings->add(new Topping("Onions", 8.00));
     Pizza* bbqChickenPizza = new BasePizza("BBQ Chicken", bbqToppings);
     cout << "4. ";
     bbqChickenPizza->printPizza();
 
     PizzaComponent* bafToppings = new ToppingGroup("BAF");
-    bafToppings->add(bacon);
-    bafToppings->add(avocado);
-    bafToppings->add(fetaCheese);
+    bafToppings->add(new Topping("Bacon", 20.00));
+    bafToppings->add(new Topping("Avocado", 19.00));
+    bafToppings->add(new Topping("Feta Cheese", 18.00));
     Pizza* bafPizza = new BasePizza("Bacon, Avocado, Feta", bafToppings);
     cout << "5. ";
     bafPizza->printPizza();
-    
+
     cout << endl;
-    
+
     cout << "========== VEGETARIAN OPTIONS ==========" << endl;
 
     PizzaComponent* vegetarianGroup = new ToppingGroup("Vegetarian");
-    vegetarianGroup->add(mushrooms);
-    vegetarianGroup->add(greenPeppers);
-    vegetarianGroup->add(onions);
+    vegetarianGroup->add(new Topping("Mushrooms", 12.00));
+    vegetarianGroup->add(new Topping("Green Peppers", 10.00));
+    vegetarianGroup->add(new Topping("Onions", 8.00));
     Pizza* vegetarianPizza = new BasePizza("Vegetarian", vegetarianGroup);
     cout << "6. ";
     vegetarianPizza->printPizza();
 
     PizzaComponent* vegetarianDeluxe = new ToppingGroup("Vegetarian Deluxe");
-    vegetarianDeluxe->add(vegetarianGroup);
-    vegetarianDeluxe->add(fetaCheese);
-    vegetarianDeluxe->add(olives);
+    vegetarianDeluxe->add(new Topping("Mushrooms", 12.00));
+    vegetarianDeluxe->add(new Topping("Green Peppers", 10.00));
+    vegetarianDeluxe->add(new Topping("Onions", 8.00));
+    vegetarianDeluxe->add(new Topping("Feta Cheese", 18.00));
+    vegetarianDeluxe->add(new Topping("Olives", 15.00));
     Pizza* vegetarianDeluxePizza = new BasePizza("Vegetarian Deluxe", vegetarianDeluxe);
     cout << "7. ";
     vegetarianDeluxePizza->printPizza();
-    
+
     PizzaComponent* greekToppings = new ToppingGroup("The Greek");
-    greekToppings->add(fetaCheese);
-    greekToppings->add(blackOlives);
-    greekToppings->add(onions);
-    greekToppings->add(tomatoes);
+    greekToppings->add(new Topping("Feta Cheese", 18.00));
+    greekToppings->add(new Topping("Black Olives", 10.00));
+    greekToppings->add(new Topping("Onions", 8.00));
+    greekToppings->add(new Topping("Tomatoes", 7.00));
     Pizza* greekPizza = new BasePizza("The Greek", greekToppings);
     cout << "8. ";
     greekPizza->printPizza();
@@ -378,21 +366,21 @@ int main() {
             cout << "========== BUILD YOUR OWN PIZZA ==========" << endl;
             cout << "Starting with basics: Dough, Tomato Sauce, Cheese (R30.00)" << endl;
             cout << "Available toppings:" << endl;
-            cout << "1. " << pepperoni->getName() << "-R" << pepperoni->getPrice() << endl;
-            cout << "2. " << mushrooms->getName() << "-R" << mushrooms->getPrice() << endl;
-            cout << "3. " << greenPeppers->getName() << "-R" << greenPeppers->getPrice() << endl;
-            cout << "4. " << onions->getName() << "-R" << onions->getPrice() << endl;
-            cout << "5. " << beefSausage->getName() << "-R" << beefSausage->getPrice() << endl;
-            cout << "6. " << salami->getName() << "-R" << salami->getPrice() << endl;
-            cout << "7. " << fetaCheese->getName() << "-R" << fetaCheese->getPrice() << endl;
-            cout << "8. " << olives->getName() << "-R" << olives->getPrice() << endl;
-            cout << "9. " << ham->getName() << "-R" << ham->getPrice() << endl;
-            cout << "10. " << pineapple->getName() << "-R" << pineapple->getPrice() << endl;
-            cout << "11. " << grilledChicken->getName() << "-R" << grilledChicken->getPrice() << endl;
-            cout << "12. " << bacon->getName() << "-R" << bacon->getPrice() << endl;
-            cout << "13. " << avocado->getName() << "-R" << avocado->getPrice() << endl;
-            cout << "14. " << blackOlives->getName() << "-R" << blackOlives->getPrice() << endl;
-            cout << "15. " << tomatoes->getName() << "-R" << tomatoes->getPrice() << endl;
+            cout << "1. Pepperoni - R20.00" << endl;
+            cout << "2. Mushrooms - R12.00" << endl;
+            cout << "3. Green Peppers - R10.00" << endl;
+            cout << "4. Onions - R8.00" << endl;
+            cout << "5. Beef Sausage - R25.00" << endl;
+            cout << "6. Salami - R22.00" << endl;
+            cout << "7. Feta Cheese - R18.00" << endl;
+            cout << "8. Olives - R15.00" << endl;
+            cout << "9. Ham - R16.00" << endl;
+            cout << "10. Pineapple - R14.00" << endl;
+            cout << "11. Grilled Chicken - R25.00" << endl;
+            cout << "12. Bacon - R20.00" << endl;
+            cout << "13. Avocado - R19.00" << endl;
+            cout << "14. Black Olives - R10.00" << endl;
+            cout << "15. Tomatoes - R7.00" << endl;
 
             PizzaComponent* customToppings = new ToppingGroup("Custom Pizza");
 
@@ -414,63 +402,62 @@ int main() {
 
                 switch (toppingsChoice) {
                     case 1:
-                        customToppings->add(pepperoni);
-                        cout << "Pepperoni added!" << endl;
+                        customToppings->add(new Topping("Pepperoni", 20.00));                        cout << "Pepperoni added!" << endl;
                         break;
                     case 2:
-                        customToppings->add(mushrooms);
+                        customToppings->add(new Topping("Mushrooms", 12.00));
                         cout << "Mushrooms added!" << endl;
                         break;
                     case 3:
-                        customToppings->add(greenPeppers);
+                        customToppings->add(new Topping("Green Peppers", 10.00));
                         cout << "Green Peppers added!" << endl;
                         break;
                     case 4:
-                        customToppings->add(onions);
+                        customToppings->add(new Topping("Onions", 8.00));
                         cout << "Onions added!" << endl;
                         break;
                     case 5:
-                        customToppings->add(beefSausage);
+                        customToppings->add(new Topping("Beef Sausage", 25.00));
                         cout << "Beef Sausage added!" << endl;
                         break;
                     case 6:
-                        customToppings->add(salami);
+                        customToppings->add(new Topping("Salami", 22.00));
                         cout << "Salami added!" << endl;
                         break;
                     case 7:
-                        customToppings->add(fetaCheese);
+                        customToppings->add(new Topping("Feta Cheese", 18.00));
                         cout << "Feta Cheese added!" << endl;
                         break;
                     case 8:
-                        customToppings->add(olives);
+                        customToppings->add(new Topping("Olives", 15.00));
                         cout << "Olives added!" << endl;
                         break;
                     case 9:
-                        customToppings->add(ham);
+                        customToppings->add(new Topping("Ham", 16.00));
                         cout << "Ham added!" << endl;
                         break;
                     case 10:
-                        customToppings->add(pineapple);
+                        customToppings->add(new Topping("Pineapple", 14.00));
                         cout << "Pineapple added!" << endl;
                         break;
                     case 11:
-                        customToppings->add(grilledChicken);
+                        customToppings->add(new Topping("Grilled Chicken", 25.00));
                         cout << "Grilled Chicken added!" << endl;
                         break;
                     case 12:
-                        customToppings->add(bacon);
+                        customToppings->add(new Topping("Bacon", 20.00));
                         cout << "Bacon added!" << endl;
                         break;
                     case 13:
-                        customToppings->add(avocado);
+                        customToppings->add(new Topping("Avocado", 19.00));
                         cout << "Avocado added!" << endl;
                         break;
                     case 14:
-                        customToppings->add(blackOlives);
+                        customToppings->add(new Topping("Black Olives", 10.00));
                         cout << "Black Olives added!" << endl;
                         break;
                     case 15:
-                        customToppings->add(tomatoes);
+                        customToppings->add(new Topping("Tomatoes", 7.00));
                         cout << "Tomatoes added!" << endl;
                         break;
                 }
@@ -588,21 +575,21 @@ int main() {
                             cout << "========== BUILD YOUR OWN PIZZA ==========" << endl;
                             cout << "Starting with basics: Dough, Tomato Sauce, Cheese (R30.00)" << endl;
                             cout << "Available toppings:" << endl;
-                            cout << "1. " << pepperoni->getName() << "-R" << pepperoni->getPrice() << endl;
-                            cout << "2. " << mushrooms->getName() << "-R" << mushrooms->getPrice() << endl;
-                            cout << "3. " << greenPeppers->getName() << "-R" << greenPeppers->getPrice() << endl;
-                            cout << "4. " << onions->getName() << "-R" << onions->getPrice() << endl;
-                            cout << "5. " << beefSausage->getName() << "-R" << beefSausage->getPrice() << endl;
-                            cout << "6. " << salami->getName() << "-R" << salami->getPrice() << endl;
-                            cout << "7. " << fetaCheese->getName() << "-R" << fetaCheese->getPrice() << endl;
-                            cout << "8. " << olives->getName() << "-R" << olives->getPrice() << endl;
-                            cout << "9. " << ham->getName() << "-R" << ham->getPrice() << endl;
-                            cout << "10. " << pineapple->getName() << "-R" << pineapple->getPrice() << endl;
-                            cout << "11. " << grilledChicken->getName() << "-R" << grilledChicken->getPrice() << endl;
-                            cout << "12. " << bacon->getName() << "-R" << bacon->getPrice() << endl;
-                            cout << "13. " << avocado->getName() << "-R" << avocado->getPrice() << endl;
-                            cout << "14. " << blackOlives->getName() << "-R" << blackOlives->getPrice() << endl;
-                            cout << "15. " << tomatoes->getName() << "-R" << tomatoes->getPrice() << endl;
+                            cout << "1. Pepperoni - R20.00" << endl;
+                            cout << "2. Mushrooms - R12.00" << endl;
+                            cout << "3. Green Peppers - R10.00" << endl;
+                            cout << "4. Onions - R8.00" << endl;
+                            cout << "5. Beef Sausage - R25.00" << endl;
+                            cout << "6. Salami - R22.00" << endl;
+                            cout << "7. Feta Cheese - R18.00" << endl;
+                            cout << "8. Olives - R15.00" << endl;
+                            cout << "9. Ham - R16.00" << endl;
+                            cout << "10. Pineapple - R14.00" << endl;
+                            cout << "11. Grilled Chicken - R25.00" << endl;
+                            cout << "12. Bacon - R20.00" << endl;
+                            cout << "13. Avocado - R19.00" << endl;
+                            cout << "14. Black Olives - R10.00" << endl;
+                            cout << "15. Tomatoes - R7.00" << endl;
 
                             PizzaComponent* customToppings = new ToppingGroup("Custom Pizza");
 
@@ -786,26 +773,10 @@ int main() {
     delete hawaiianPizza;
     delete meatLoversPizza;
     delete bbqChickenPizza;
+    delete bafPizza;
     delete vegetarianPizza;
     delete vegetarianDeluxePizza;
     delete greekPizza;
-
-    // delete individual toppings
-    delete pepperoni;
-    delete mushrooms;
-    delete greenPeppers;
-    delete onions;
-    delete beefSausage;
-    delete salami;
-    delete fetaCheese;
-    delete olives;
-    delete ham;
-    delete pineapple;
-    delete grilledChicken;
-    delete bacon;
-    delete avocado;
-    delete blackOlives;
-    delete tomatoes;
 
     return 0;
 }

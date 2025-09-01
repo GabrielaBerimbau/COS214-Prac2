@@ -2,6 +2,14 @@
 #include <iostream>
 using namespace std;
 
+ToppingGroup::~ToppingGroup()
+{
+    for (PizzaComponent* component : toppings) {
+        delete component;
+    }
+    toppings.clear();
+}
+
 string ToppingGroup::getName()
 {
     std::string res = name + " (";

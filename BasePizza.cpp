@@ -2,6 +2,11 @@
 #include <iostream>
 using namespace std;
 
+BasePizza::~BasePizza()
+{
+    delete toppings;
+}
+
 double BasePizza::getPrice()
 {
     //basic pizza ingredients

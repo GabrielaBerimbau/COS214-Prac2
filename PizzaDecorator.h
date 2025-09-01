@@ -13,7 +13,7 @@ class PizzaDecorator : public Pizza {
     public:
         //constructors
         PizzaDecorator(Pizza* p) : pizza(p) {};
-        virtual ~PizzaDecorator() = default;
+        virtual ~PizzaDecorator();
 
         //inherited functions
         virtual double getPrice() override;
