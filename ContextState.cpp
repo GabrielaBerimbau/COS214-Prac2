@@ -83,8 +83,8 @@ void ContextState::internalDisplayOrder() const {
         std::cout << "No pizzas in order.\n";
     } else {
         std::cout << "Pizzas:\n";
-        for (size_t i = 0; i < pizzas.size(); ++i) {
-            std::cout << "- Pizza " << (i + 1) << "\n"; 
+        for (Pizza* pizza : pizzas) {
+            cout << "- " << pizza->getName() << " - R" << pizza->getPrice() << endl;
         }
     }
     std::cout << "Total: R" << getTotalPrice() << "\n";

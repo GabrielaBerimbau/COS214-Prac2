@@ -17,5 +17,5 @@ double BasePizza::getPrice()
 
 string BasePizza::getName()
 {
-    return pizzaName + ": " + toppings->getName();
+    return toppings->getName();
 }

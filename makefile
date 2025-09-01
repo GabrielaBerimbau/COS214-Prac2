@@ -61,6 +61,10 @@ run: $(TEST_TARGET)
 demo: $(TARGET)
 	./$(TARGET)
 
+# Run memory check with Valgrind
+valgrind: $(TARGET)
+	valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes ./$(TARGET)
+
 # Coverage analysis
 cov: clean
 	$(CXX) $(CXXFLAGS) $(COVERAGE_FLAGS) -c $(COMMON_SOURCES) $(TEST_MAIN_SOURCE)
