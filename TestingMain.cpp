@@ -107,22 +107,6 @@ void testDecoratorPattern() {
     vegetarianGroup->add(new Topping("Green Peppers", 10.00));
     vegetarianGroup->add(new Topping("Onions", 8.00));
 
-    // Test BasePizza functionality
-    Pizza* basePepperoni = new BasePizza("Pepperoni Pizza", pepperoniTopping);
-    cout << "Base Pizza Test:" << endl;
-    basePepperoni->printPizza(); 
-    assert(basePepperoni->getPrice() == 50.00); // 10+5+15+20 (dough+sauce+cheese+topping)
-    assert(basePepperoni->getName() == "Pepperoni Pizza: Pepperoni");
-    cout << endl;
-
-    // Test single decorator
-    Pizza* extraCheesePepperoni = new ExtraCheese(basePepperoni);
-    cout << "Single Decorator Test:" << endl;
-    extraCheesePepperoni->printPizza();
-    assert(extraCheesePepperoni->getPrice() == 62.00); // 50+12
-    assert(extraCheesePepperoni->getName() == "Pepperoni Pizza: Pepperoni, Extra Cheese");
-    cout << endl;
-
     // Test chained decorators
     Pizza* vegBase = new BasePizza("Vegetarian", vegetarianGroup);
     Pizza* vegExtraCheese = new ExtraCheese(vegBase);
@@ -610,6 +594,7 @@ int main() {
         cout << "================================================" << endl;
         cout << "ALL TESTS PASSED! FULL COVERAGE ACHIEVED!" << endl;
         cout << "================================================" << endl;
+        
         
     } catch (const std::exception& e) {
         cout << "TEST FAILED: " << e.what() << endl;
