@@ -210,6 +210,8 @@ int main() {
      cout << "8. ";
     greekPizza->printPizza();
 
+    cout << endl;
+
     cout << "9. Build Your Own Pizza - Starting with basics (Dough, Tomato Sauce, Cheese) R30.00 + toppings" << endl;
 
     cout << endl;
@@ -389,21 +391,200 @@ int main() {
 
     // Order review and completion
     if (order.getPizzas().size() > 0) {
-        cout << "========== ORDER REVIEW ==========" << endl;
-        order.proceedToReview();
         
-        cout << "Your order contains " << order.getPizzas().size() << " pizza(s):" << endl;
-        for (int i = 0; i < order.getPizzas().size(); i++) {
-            cout << (i + 1) << ". ";
-            order.getPizzas()[i]->printPizza();
+        bool reviewComplete = false;
+        while (!reviewComplete) {
+            cout << "========== ORDER REVIEW ==========" << endl;
+            order.proceedToReview();
+            
+            cout << "Your order contains " << order.getPizzas().size() << " pizza(s):" << endl;
+            for (int i = 0; i < order.getPizzas().size(); i++) {
+                cout << (i + 1) << ". ";
+                order.getPizzas()[i]->printPizza();
+            }
+            
+            cout << endl << "Total Price: R" << order.getTotalPrice() << endl << endl;
+            
+            // Allow you to go back to ordering state
+            cout << "Options:" << endl;
+            cout << "1. Continue to checkout" << endl;
+            cout << "2. Add more pizzas" << endl;
+
+            cout << endl;
+            
+            bool validReviewChoice = false;
+            while (!validReviewChoice) {
+                cout << "Enter your choice (1-2): ";
+                int reviewChoice = getIntInput();
+                
+                if (reviewChoice < 1 || reviewChoice > 2) {
+                    cout << "Invalid choice. Please select 1 or 2." << endl;
+                    continue;
+                }
+                
+                if (reviewChoice == 2) {
+                    // Go back to ordering 
+                    order.backToEditing();
+                    cout << "Returning to pizza selection..." << endl << endl;
+                    
+                    // Resume ordering loop
+                    bool continuingOrder = true;
+                    while (continuingOrder && order.getCurrentState()->getStateName() == "Order") {
+                        cout << "Enter your choice (1-9, or 0 to return to review): ";
+                        int choice = getIntInput();
+
+                        if (choice == 0) {
+                            continuingOrder = false;
+                            break;
+                        }
+
+                        if (choice < 1 || choice > 9) {
+                            cout << "Invalid number input. Please select a number between 1 and 9." << endl;
+                            continue;
+                        }
+
+                        Pizza* pizzaChoice = nullptr;
+
+                        if (choice == 9) {
+                            // Build Your Own Pizza
+                            cout << "========== BUILD YOUR OWN PIZZA ==========" << endl;
+                            cout << "Starting with basics: Dough, Tomato Sauce, Cheese (R30.00)" << endl;
+                            cout << "Available toppings:" << endl;
+                            cout << "1. " << pepperoni->getName() << "-R" << pepperoni->getPrice() << endl;
+                            cout << "2. " << mushrooms->getName() << "-R" << mushrooms->getPrice() << endl;
+                            cout << "3. " << greenPeppers->getName() << "-R" << greenPeppers->getPrice() << endl;
+                            cout << "4. " << onions->getName() << "-R" << onions->getPrice() << endl;
+                            cout << "5. " << beefSausage->getName() << "-R" << beefSausage->getPrice() << endl;
+                            cout << "6. " << salami->getName() << "-R" << salami->getPrice() << endl;
+                            cout << "7. " << fetaCheese->getName() << "-R" << fetaCheese->getPrice() << endl;
+                            cout << "8. " << olives->getName() << "-R" << olives->getPrice() << endl;
+                            cout << "9. " << ham->getName() << "-R" << ham->getPrice() << endl;
+                            cout << "10. " << pineapple->getName() << "-R" << pineapple->getPrice() << endl;
+                            cout << "11. " << grilledChicken->getName() << "-R" << grilledChicken->getPrice() << endl;
+                            cout << "12. " << bacon->getName() << "-R" << bacon->getPrice() << endl;
+                            cout << "13. " << avocado->getName() << "-R" << avocado->getPrice() << endl;
+                            cout << "14. " << blackOlives->getName() << "-R" << blackOlives->getPrice() << endl;
+                            cout << "15. " << tomatoes->getName() << "-R" << tomatoes->getPrice() << endl;
+
+                            PizzaComponent* customToppings = new ToppingGroup("Custom Pizza");
+
+                            bool buildingPizza = true;
+                            while(buildingPizza) {
+                                cout << "Enter your choice (1-15, or 0 to finish): ";
+                                int toppingsChoice = getIntInput();
+
+                                if (toppingsChoice == 0) {
+                                    buildingPizza = false;
+                                    break;
+                                }
+
+                                if (toppingsChoice < 1 || toppingsChoice > 15) {
+                                    cout << "Invalid number input. Please select a number between 1 and 15." << endl;
+                                    continue;
+                                }
+
+                                switch (toppingsChoice) {
+                                    case 1:
+                                        customToppings->add(new Topping("Pepperoni", 20.00));
+                                        cout << "Pepperoni added!" << endl;
+                                        break;
+                                    case 2:
+                                        customToppings->add(new Topping("Mushrooms", 12.00));
+                                        cout << "Mushrooms added!" << endl;
+                                        break;
+                                    case 3:
+                                        customToppings->add(new Topping("Green Peppers", 10.00));
+                                        cout << "Green Peppers added!" << endl;
+                                        break;
+                                    case 4:
+                                        customToppings->add(new Topping("Onions", 8.00));
+                                        cout << "Onions added!" << endl;
+                                        break;
+                                    case 5:
+                                        customToppings->add(new Topping("Beef Sausage", 25.00));
+                                        cout << "Beef Sausage added!" << endl;
+                                        break;
+                                    case 6:
+                                        customToppings->add(new Topping("Salami", 22.00));
+                                        cout << "Salami added!" << endl;
+                                        break;
+                                    case 7:
+                                        customToppings->add(new Topping("Feta Cheese", 18.00));
+                                        cout << "Feta Cheese added!" << endl;
+                                        break;
+                                    case 8:
+                                        customToppings->add(new Topping("Olives", 15.00));
+                                        cout << "Olives added!" << endl;
+                                        break;
+                                    case 9:
+                                        customToppings->add(new Topping("Ham", 16.00));
+                                        cout << "Ham added!" << endl;
+                                        break;
+                                    case 10:
+                                        customToppings->add(new Topping("Pineapple", 14.00));
+                                        cout << "Pineapple added!" << endl;
+                                        break;
+                                    case 11:
+                                        customToppings->add(new Topping("Grilled Chicken", 25.00));
+                                        cout << "Grilled Chicken added!" << endl;
+                                        break;
+                                    case 12:
+                                        customToppings->add(new Topping("Bacon", 20.00));
+                                        cout << "Bacon added!" << endl;
+                                        break;
+                                    case 13:
+                                        customToppings->add(new Topping("Avocado", 19.00));
+                                        cout << "Avocado added!" << endl;
+                                        break;
+                                    case 14:
+                                        customToppings->add(new Topping("Black Olives", 10.00));
+                                        cout << "Black Olives added!" << endl;
+                                        break;
+                                    case 15:
+                                        customToppings->add(new Topping("Tomatoes", 7.00));
+                                        cout << "Tomatoes added!" << endl;
+                                        break;
+                                }
+
+                                cout << "Current pizza price: R" << (30.00 + customToppings->getPrice()) << endl << endl;
+                            }
+
+                            pizzaChoice = new BasePizza("Custom Pizza", customToppings);
+                        } else {
+                            pizzaChoice = createSelectedPizza(choice);
+                        }
+
+                        if (pizzaChoice) {
+                            cout << "You selected: ";
+                            pizzaChoice->printPizza();
+                            
+                            cout << "Would you like to add any extras? Enter choice (1-4): ";
+                            int extraChoice = getIntInput();
+                            
+                            pizzaChoice = applyExtras(pizzaChoice, extraChoice);
+                            
+                            order.addPizza(pizzaChoice);
+                            
+                            cout << endl << "Added to your order:" << endl;
+                            pizzaChoice->printPizza();
+                            cout << "Current order total: R" << order.getTotalPrice() << endl;
+                            cout << "Items in order: " << order.getPizzas().size() << endl << endl;
+                        }
+                    }
+                    
+                    validReviewChoice = true; // Exit inner loop to go back to review
+                } else {
+                    // Continue to checkout
+                    reviewComplete = true;
+                    validReviewChoice = true;
+                }
+            }
         }
         
-        cout << endl << "Total Price: R" << order.getTotalPrice() << endl << endl;
-        
         cout << "Choose the appropriate discount: " << endl;
-        cout << "1. Regular Price: 0'%' discount" << endl;
-        cout << "2. Bulk orders (5+ pizzas): 10'%' discount" << endl;
-        cout << "3. Family Discount: 15'%' discount" << endl;
+        cout << "1. Regular Price: 0%' discount" << endl;
+        cout << "2. Bulk orders (5+ pizzas): 10%' discount" << endl;
+        cout << "3. Family Discount: 15%' discount" << endl;
 
         bool validChoice = false;
         while (!validChoice) {
@@ -435,14 +616,12 @@ int main() {
                 cout << "Regular pricing applied!" << endl;
                 validChoice = true;
             }
-
         }
 
         cout << endl;
 
         // Display current order
         order.internalDisplayOrder();
-
 
         cout << "Confirm your order? (y/n): ";
         char confirm;
@@ -459,7 +638,6 @@ int main() {
     } else {
         cout << "No pizzas ordered. Thank you for visiting Romeo's Pizza!" << endl;
     }
-
 
     // clean up memory
     delete pepperoniPizza;
