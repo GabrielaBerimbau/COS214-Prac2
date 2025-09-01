@@ -4,16 +4,22 @@
 #include "StateConfirm.h"
 #include "StateComplete.h"
 #include "Pizza.h"
+#include "DiscountStrategy.h"
+#include "RegularPrice.h"
+#include "BulkDiscount.h"
+#include "FamilyDiscount.h"
 #include <iostream>
 #include <algorithm>
 
 ContextState::ContextState() : orderNumber(0) {
     state = new StateOrder(); 
+    strategy = new RegularPrice();
     std::cout << "New order created in " << state->getStateName() << " state.\n";
 }
 
 ContextState::~ContextState() {
     delete state; 
+    delete strategy;
 }
 
 void ContextState::setState(State* newState) {
@@ -82,7 +88,14 @@ void ContextState::internalDisplayOrder() const {
         }
     }
     std::cout << "Total: R" << getTotalPrice() << "\n";
+    std::cout << "Total after discount: R" << strategy->applyDiscount(getTotalPrice(), pizzas.size()) << "\n";
     std::cout << "------------------------\n\n";
+}
+
+void ContextState::setStrategy(DiscountStrategy * discountStrategy)
+{
+    delete strategy;
+    strategy = discountStrategy;
 }
 
 const std::vector<Pizza*>& ContextState::getPizzas() const {

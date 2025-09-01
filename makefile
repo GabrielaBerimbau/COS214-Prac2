@@ -2,12 +2,12 @@
 CXX = g++
 CXXFLAGS = -std=c++11 -Wall -Wextra -g
 
-# Target executable names
-TEST_TARGET = testing
-DEMO_TARGET = demo
+# Target executables
+TARGET = pizza_demo
+TEST_TARGET = test_pizza
 
-# Source files (add all your .cpp files here except the main files)
-SOURCES = BasePizza.cpp \
+# Source files
+COMMON_SOURCES = BasePizza.cpp \
           BulkDiscount.cpp \
           ContextState.cpp \
           Customer.cpp \
@@ -28,59 +28,53 @@ SOURCES = BasePizza.cpp \
           StuffedCrust.cpp \
           Topping.cpp \
           ToppingGroup.cpp \
-          Website.cpp
+          Website.cpp 
+
+MAIN_SOURCE = DemoMain.cpp
+TEST_MAIN_SOURCE = TestingMain.cpp
 
 # Object files
-OBJECTS = $(SOURCES:.cpp=.o)
+COMMON_OBJECTS = $(COMMON_SOURCES:.cpp=.o)
+MAIN_OBJECT = $(MAIN_SOURCE:.cpp=.o)
+TEST_MAIN_OBJECT = $(TEST_MAIN_SOURCE:.cpp=.o)
 
-# Main source files
-TEST_MAIN = TestingMain.cpp
-DEMO_MAIN = DemoMain.cpp
+# Default target
+all: $(TARGET) $(TEST_TARGET)
 
-# Default target - runs the testing main (required by FitchFork)
-run: $(TEST_TARGET)
-	./$(TEST_TARGET)
+# Build main application
+$(TARGET): $(COMMON_OBJECTS) $(MAIN_OBJECT)
+	$(CXX) $(CXXFLAGS) -o $(TARGET) $(COMMON_OBJECTS) $(MAIN_OBJECT)
 
-# Build testing executable
-$(TEST_TARGET): $(OBJECTS) $(TEST_MAIN:.cpp=.o)
-	$(CXX) $(CXXFLAGS) -o $(TEST_TARGET) $(OBJECTS) $(TEST_MAIN:.cpp=.o)
+# Build test application
+$(TEST_TARGET): $(COMMON_OBJECTS) $(TEST_MAIN_OBJECT)
+	$(CXX) $(CXXFLAGS) -o $(TEST_TARGET) $(COMMON_OBJECTS) $(TEST_MAIN_OBJECT)
 
-# Build demo executable
-$(DEMO_TARGET): $(OBJECTS) $(DEMO_MAIN:.cpp=.o)
-	$(CXX) $(CXXFLAGS) -o $(DEMO_TARGET) $(OBJECTS) $(DEMO_MAIN:.cpp=.o)
-
-# Build demo and run it
-demo: $(DEMO_TARGET)
-	./$(DEMO_TARGET)
-
-# Compile source files to object files
+# Compile source files
 %.o: %.cpp
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
-# Build both executables
-all: $(TEST_TARGET) $(DEMO_TARGET)
+# Run test program
+run: $(TEST_TARGET)
+	./$(TEST_TARGET)
 
-# Clean up generated files
+# Run demo program
+demo: $(TARGET)
+	./$(TARGET)
+
+# Coverage analysis
+cov: clean
+	$(CXX) $(CXXFLAGS) $(COVERAGE_FLAGS) -c $(COMMON_SOURCES) $(TEST_MAIN_SOURCE)
+	$(CXX) $(CXXFLAGS) $(COVERAGE_FLAGS) -o $(TEST_TARGET) *.o
+	./$(TEST_TARGET)
+	gcov *.cpp
+	@echo ""
+	@echo "=== Coverage Summary ==="
+	@grep "Lines executed" *.cpp.gcov 2>/dev/null | head -10 || echo "Coverage files generated. Use 'ls *.gcov' to see all files."
+	@echo ""
+	@echo "To view detailed coverage for a specific file, use: less <filename>.cpp.gcov"
+
+# Clean up
 clean:
-	rm -f $(OBJECTS) $(TEST_MAIN:.cpp=.o) $(DEMO_MAIN:.cpp=.o) $(TEST_TARGET) $(DEMO_TARGET)
+	rm -f *.o *.gcda *.gcno *.gcov $(TARGET) $(TEST_TARGET)
 
-# Remove only object files
-clean-obj:
-	rm -f $(OBJECTS) $(TEST_MAIN:.cpp=.o) $(DEMO_MAIN:.cpp=.o)
-
-# Rebuild everything from scratch
-rebuild: clean all
-
-# Show help information
-help:
-	@echo "Available targets:"
-	@echo "  run        - Build and run testing main (default, used by FitchFork)"
-	@echo "  demo       - Build and run demo main"
-	@echo "  all        - Build both testing and demo executables"
-	@echo "  clean      - Remove all generated files"
-	@echo "  clean-obj  - Remove only object files"
-	@echo "  rebuild    - Clean and rebuild everything"
-	@echo "  help       - Show this help message"
-
-# Declare phony targets
-.PHONY: run demo all clean clean-obj rebuild help
+.PHONY: all run run-demo cov clean

@@ -4,7 +4,7 @@
 double BulkDiscount::applyDiscount(double originalPrice, int numPizzas)
 {
     if (numPizzas < 5) {
-        std::cout << "Bulk discount cannot be applied to orders with less than 5 pizzas.";
+        std::cout << "Bulk discount cannot be applied to orders with 5 or more pizzas.";
         return originalPrice;
     }
 

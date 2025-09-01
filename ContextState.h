@@ -2,6 +2,7 @@
 #define CONTEXTSTATE_H
 
 #include "State.h"
+#include "DiscountStrategy.h"
 #include <vector>
 #include <string>
 
@@ -14,6 +15,7 @@ private:
     State* state;
     std::vector<Pizza*> pizzas; 
     int orderNumber;
+    DiscountStrategy* strategy;
     
 public:
     ContextState();
@@ -40,7 +42,12 @@ public:
   //helper methods
     void internalAddPizza(Pizza* pizza);
     void internalRemovePizza(Pizza* pizza);
-    void internalDisplayOrder() const;
+    void internalDisplayOrder() const; //strategy called in here
+
+    void setStrategy(DiscountStrategy* discountStrategy);
+    
+  
+
 };
 
 #endif 
