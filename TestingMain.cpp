@@ -101,7 +101,6 @@ void testDecoratorPattern() {
     cout << "=================== Testing Decorator ==================== " << endl << endl;
 
     // Create base toppings for decorator testing
-    PizzaComponent* pepperoniTopping = new Topping("Pepperoni", 20.00);
     PizzaComponent* vegetarianGroup = new ToppingGroup("Vegetarian");
     vegetarianGroup->add(new Topping("Mushroom", 12.00));
     vegetarianGroup->add(new Topping("Green Peppers", 10.00));

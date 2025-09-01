@@ -4,31 +4,39 @@
 #include <iostream>
 
 void StateConfirm::handleChange(ContextState* context) {
+    (void)context;
     std::cout << "In Confirmed state: Order is being prepared. You can complete when ready.\n";
     std::cout << "Available actions: completeOrder()\n";
 }
 
 void StateConfirm::addPizza(ContextState* context, Pizza* pizza) {
+    (void)context;
+    (void)pizza;
     // Cannot modify order once confirmed
     std::cout << "Cannot add pizza to confirmed order. Order is being prepared.\n";
 }
 
 void StateConfirm::removePizza(ContextState* context, Pizza* pizza) {
+    (void)context;
+    (void)pizza;
     // Cannot modify order once confirmed
     std::cout << "Cannot remove pizza from confirmed order. Order is being prepared.\n";
 }
 
 void StateConfirm::proceedToReview(ContextState* context) {
+    (void)context;
     // Cannot go back to review from confirmed state
     std::cout << "Cannot return to review from confirmed order.\n";
 }
 
 void StateConfirm::backToEditing(ContextState* context) {
+    (void)context;
     // Cannot go back to editing from confirmed state
     std::cout << "Cannot return to editing from confirmed order.\n";
 }
 
 void StateConfirm::confirmOrder(ContextState* context) {
+    (void)context;
     // Already confirmed
     std::cout << "Order is already confirmed and being prepared.\n";
 }

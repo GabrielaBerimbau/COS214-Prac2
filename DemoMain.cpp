@@ -518,7 +518,7 @@ int main() {
             order.proceedToReview();
             
             cout << "Your order contains " << order.getPizzas().size() << " pizza(s):" << endl;
-            for (int i = 0; i < order.getPizzas().size(); i++) {
+            for (size_t i = 0; i < order.getPizzas().size(); i++) {
                 cout << (i + 1) << ". ";
                 order.getPizzas()[i]->printPizza();
             }
